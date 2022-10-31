@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 
 const logger = require('./src/helpers/logger.helper');
+const { successResponse } = require('./src/helpers/response.helper');
 
 const app = express();
 app.use(Cors());
@@ -21,10 +22,13 @@ dotenv.config();
 const port = process.env.PORT || 8000;
 
 app.get('/', (req, res) => {
-  return res.status(200).send('PARKING MANAGER BACKEND APIs.');
+  return successResponse(res, 'PARKING MANAGER BACKEND APIs.');
 });
 
+require('./src/routes/parking.routes')(app);
+
 const server = app.listen(port, function () {
+  console.log(`Express server listening on port ${port}`);
   logger.info(`Express server listening on port ${port}`);
 });
 
