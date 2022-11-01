@@ -19,3 +19,20 @@ exports.checkSlot = [
     return ApiResponse.successResponseWithData(res, 'Slot Found!', slotInfo);
   },
 ];
+
+exports.parkCar = [
+  body('car').not().isEmpty().withMessage('Please send car'),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return ApiResponse.validationErrorWithData(res, 'Validation Error.', errors.array());
+    }
+
+    const { car } = req.body;
+    const slotInfo = await parkCar(car);
+    if (!slotInfo) {
+      return ApiResponse.resourceNotAvailable(res, 'Parking Full!');
+    }
+    return ApiResponse.successResponseWithData(res, 'Slot Found!', slotInfo);
+  },
+];

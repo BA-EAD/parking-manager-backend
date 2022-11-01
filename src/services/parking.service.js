@@ -12,3 +12,23 @@ exports.getParkingSlotInfo = (index) => {
   }
   return PARKING[index - 1];
 };
+
+exports.parkCar = (licensePlate) => {
+  let flag = false;
+  for (let i = 0; i < PARKING_SIZE; i++) {
+    if (PARKING[i].isAvailable) {
+      PARKING[i] = { isAvailable: false, licensePlate };
+      flag = i + 1;
+      break;
+    } else {
+      if (PARKING[i].licensePlate === licensePlate) {
+        flag = `Already Parked in slot ${i + 1}`;
+        break;
+      }
+    }
+  }
+  if (flag === false) {
+    return flag;
+  }
+  return { isAvailable: false, licensePlate, slot: flag };
+};
