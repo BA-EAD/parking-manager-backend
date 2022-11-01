@@ -4,6 +4,7 @@ module.exports = (app) => {
 
   router.get('/slot', Parking.checkSlot);
   router.post('/park', Parking.parkCar);
+  router.post('/unpark', Parking.unparkCar);
 
   app.use('/', router);
 };

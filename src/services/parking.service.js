@@ -32,3 +32,15 @@ exports.parkCar = (licensePlate) => {
   }
   return { isAvailable: false, licensePlate, slot: flag };
 };
+
+exports.unparkCar = (licensePlate) => {
+  let flag = false;
+  for (let i = 0; i < PARKING_SIZE; i++) {
+    if (PARKING[i].licensePlate === licensePlate) {
+      PARKING[i] = { isAvailable: true, licensePlate: '' };
+      flag = { isAvailable: true, licensePlate, slot: i + 1 };
+      break;
+    }
+  }
+  return flag;
+};
