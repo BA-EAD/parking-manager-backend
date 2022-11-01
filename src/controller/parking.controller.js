@@ -1,6 +1,6 @@
-const { query, validationResult } = require('express-validator');
+const { query, validationResult, body } = require('express-validator');
 const ApiResponse = require('../helpers/response.helper');
-const { getParkingSlotInfo } = require('../services/parking.service');
+const { getParkingSlotInfo, parkCar } = require('../services/parking.service');
 
 exports.checkSlot = [
   query('slot').not().isEmpty().withMessage('Please send slot'),
